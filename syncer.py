@@ -141,7 +141,7 @@ def sync():
 
     logging.info("=== Iterate LDAP Groups (Aliases) ===")
 
-    ldap_results_groups = ldap_connector.search_s(config['LDAP_BASE_DN'], ldap.SCOPE_SUBTREE,
+    ldap_results_groups = ldap_connector.search_s(config['LDAP_GROUP_BASE_DN'], ldap.SCOPE_SUBTREE,
                                             config['LDAP_GROUP_FILTER'],
                                             ['member', 'mail'])
 
@@ -262,6 +262,7 @@ def read_config():
         'LDAP_MAILCOW_API_KEY',
         'LDAP_MAILCOW_API_QUOTA',
         'LDAP_MAILCOW_SYNC_INTERVAL'
+        'LDAP_MAILCOW_LDAP_GROUP_BASE_DN'
     ]
 
     global config
@@ -291,7 +292,11 @@ def read_config():
     config['LDAP_GROUP_FILTER'] = os.environ[
         'LDAP_MAILCOW_LDAP_GROUP_FILTER'] if 'LDAP_MAILCOW_LDAP_GROUP_FILTER' in os.environ else "(&(objectClass=group)(mail=*))"
     config['LDAP_GROUP_MEMBER_FILTER'] = os.environ[
-        'LDAP_MAILCOW_LDAP_GROUP_MEMBER_FILTER'] if 'LDAP_MAILCOW_LDAP_GROUP_MEMBER_FILTER' in os.environ else "(&(objectClass=person)(mail=*)(distinguishedName={MEMBER_CN}))"    
+        'LDAP_MAILCOW_LDAP_GROUP_MEMBER_FILTER'] if 'LDAP_MAILCOW_LDAP_GROUP_MEMBER_FILTER' in os.environ else "(&(objectClass=person)(mail=*)(distinguishedName={MEMBER_CN}))"
+    config['LDAP_GROUP_FILTER'] = os.environ[
+        'LDAP_MAILCOW_LDAP_GROUP_FILTER'] if 'LDAP_MAILCOW_LDAP_GROUP_FILTER' in os.environ else "(&(objectClass=group)(mail=*))"
+    config['LDAP_GROUP_BASE_DN'] = os.environ[
+        'LDAP_MAILCOW_LDAP_GROUP_BASE_DN'] if 'LDAP_MAILCOW_LDAP_GROUP_BASE_DN' in os.environ else ''
 
 
 def read_dovecot_passdb_conf_template():
