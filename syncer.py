@@ -261,7 +261,7 @@ def read_config():
         'LDAP_MAILCOW_API_HOST',
         'LDAP_MAILCOW_API_KEY',
         'LDAP_MAILCOW_API_QUOTA',
-        'LDAP_MAILCOW_SYNC_INTERVAL'
+        'LDAP_MAILCOW_SYNC_INTERVAL',
         'LDAP_MAILCOW_LDAP_GROUP_BASE_DN'
     ]
 
